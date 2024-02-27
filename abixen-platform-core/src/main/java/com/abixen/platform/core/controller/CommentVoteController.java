@@ -37,14 +37,14 @@ public class CommentVoteController {
     @Autowired
     private CommentVoteService commentVoteService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public CommentVoteDto createCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm) {
         CommentVoteDto savedVoteDto = commentVoteService.saveCommentVote(commentVoteForm);
         return savedVoteDto;
     }
 
     //FixME not sure we really need this method
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateCommentVote(@RequestBody @Valid CommentVoteForm commentVoteForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -54,7 +54,7 @@ public class CommentVoteController {
         return new FormValidationResultDto(updatedForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void deleteCommentVote(@PathVariable("id") Long id) {
         commentVoteService.deleteById(id);
         return;

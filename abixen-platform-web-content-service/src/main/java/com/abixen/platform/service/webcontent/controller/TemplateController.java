@@ -47,7 +47,7 @@ public class TemplateController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createTemplate(@RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         log.debug("createTemplate() - templateForm: {}", templateForm);
 
@@ -62,7 +62,7 @@ public class TemplateController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateTemplate(@PathVariable("id") Long id, @RequestBody @Valid TemplateForm templateForm, BindingResult bindingResult) {
         log.debug("updateTemplate() - id: {}, templateForm: {}", id, templateForm);
 
@@ -77,7 +77,7 @@ public class TemplateController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void removeTemplate(@PathVariable Long id) {
         log.debug("removeTemplate() - id: {}", id);
 
@@ -85,14 +85,14 @@ public class TemplateController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public TemplateWeb getTemplate(@PathVariable Long id) {
         log.debug("getTemplate() - id: {}", id);
 
         return templateService.findTemplateById(id);
     }
 
-    @RequestMapping(value = "/{id}/variables", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/variables")
     public List<String> getTemplateVariables(@PathVariable Long id) {
         log.debug("getTemplateVariables() - id: {}", id);
 
@@ -101,7 +101,7 @@ public class TemplateController {
         return variables;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<Template> getTemplates(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getTemplates() - pageable: {}", pageable);
 
@@ -113,7 +113,7 @@ public class TemplateController {
         return templates;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public List<Template> getTemplates() {
         log.debug("getTemplates()");
 

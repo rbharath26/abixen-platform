@@ -17,6 +17,7 @@ package com.abixen.platform.service.businessintelligence.controller;
 import com.abixen.platform.service.businessintelligence.configuration.properties.ModulesConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class ConfigurationController {
         this.modulesConfigurationProperties = modulesConfigurationProperties;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public ModulesConfigurationProperties getModulesConfigurationProperties() {
         log.debug("getModulesConfigurationProperties - modulesConfigurationProperties: " + modulesConfigurationProperties);
         return modulesConfigurationProperties;

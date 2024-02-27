@@ -17,6 +17,7 @@ package com.abixen.platform.core.controller.application;
 import com.abixen.platform.core.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +35,7 @@ public class ApplicationUserActivationController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/activate/{userHashKey}/", method = RequestMethod.GET)
+    @GetMapping(value = "/activate/{userHashKey}/")
     public void activate(@PathVariable String userHashKey) {
         log.debug("activate() - userHashKey: " + userHashKey);
 

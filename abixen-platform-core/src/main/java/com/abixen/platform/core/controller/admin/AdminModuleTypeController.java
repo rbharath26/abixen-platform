@@ -23,7 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +46,7 @@ public class AdminModuleTypeController {
         this.moduleTypeToModuleTypeDtoConverter = moduleTypeToModuleTypeDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<ModuleTypeDto> getModuleTypes(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleTypeSearchForm moduleTypeSearchForm) {
         log.debug("getModuleTypes()");
 
@@ -53,7 +55,7 @@ public class AdminModuleTypeController {
         return moduleTypeDtos;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public List<ModuleTypeDto> getModuleTypes() {
         log.debug("getModuleTypes()");
 
@@ -62,14 +64,14 @@ public class AdminModuleTypeController {
         return moduleTypeDtos;
     }
 
-    @RequestMapping(value = "/{id}/reload", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}/reload")
     public void reload(@PathVariable Long id) {
         log.debug("reload() - id: " + id);
 
         moduleTypeService.reload(id);
     }
 
-    @RequestMapping(value = "/reload-all", method = RequestMethod.PUT)
+    @PutMapping(value = "/reload-all")
     public void reloadAll() {
         log.debug("reloadAll()");
 

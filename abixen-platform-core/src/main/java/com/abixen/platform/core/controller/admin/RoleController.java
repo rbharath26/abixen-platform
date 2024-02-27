@@ -64,7 +64,7 @@ public class RoleController {
         this.permissionToPermissionDtoConverter = permissionToPermissionDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<RoleDto> getRoles(@PageableDefault(size = 1, page = 0) Pageable pageable, RoleSearchForm roleSearchForm) {
         log.debug("getRoles()");
 
@@ -74,7 +74,7 @@ public class RoleController {
         return roleDtos;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public RoleDto getRole(@PathVariable Long id) {
         log.debug("getRole() - id: " + id);
 
@@ -84,7 +84,7 @@ public class RoleController {
         return roleDto;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createRole(@RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
         log.debug("save() - roleForm: " + roleForm);
 
@@ -99,7 +99,7 @@ public class RoleController {
         return new FormValidationResultDto(roleForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateRole(@PathVariable("id") Long id, @RequestBody @Valid RoleForm roleForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", roleForm: " + roleForm);
 
@@ -111,7 +111,7 @@ public class RoleController {
         return new FormValidationResultDto(roleService.updateRole(roleForm));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteRole(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         try {
@@ -127,7 +127,7 @@ public class RoleController {
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/permissions", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/permissions")
     public RolePermissionsForm getRolePermissions(@PathVariable Long id) {
         log.debug("getRolePermissionsForm() - id: " + id);
 
@@ -141,7 +141,7 @@ public class RoleController {
         return rolePermissionsForm;
     }
 
-    @RequestMapping(value = "/{id}/permissions", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}/permissions")
     public FormValidationResultDto updateRolePermissions(@PathVariable("id") Long id, @RequestBody @Valid RolePermissionsForm rolePermissionsForm, BindingResult bindingResult) {
         log.debug("updateRolePermissions() - id: " + id + ", rolePermissionsForm: " + rolePermissionsForm);
 

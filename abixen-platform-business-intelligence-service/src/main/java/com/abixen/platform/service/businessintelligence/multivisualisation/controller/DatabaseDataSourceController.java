@@ -51,7 +51,7 @@ public class DatabaseDataSourceController {
         this.databaseDataSourceService = databaseDataSourceService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<DatabaseDataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
@@ -61,7 +61,7 @@ public class DatabaseDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public DatabaseDataSourceWeb getDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
@@ -69,7 +69,7 @@ public class DatabaseDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createDataSource(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm, BindingResult bindingResult) {
         log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
 
@@ -84,7 +84,7 @@ public class DatabaseDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - id: " + id + ", databaseDataSourceForm: " + databaseDataSourceForm);
 
@@ -99,7 +99,7 @@ public class DatabaseDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/preview", method = RequestMethod.POST)
+    @PostMapping(value = "/preview")
     public  List<Map<String, DataValueWeb>> getPreviewData(@RequestBody @Valid DatabaseDataSourceForm databaseDataSourceForm) {
         log.debug("createDataSource() - databaseDataSourceForm: " + databaseDataSourceForm);
 
@@ -108,7 +108,7 @@ public class DatabaseDataSourceController {
         return databaseDataSourcePreviewData;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteDatabaseDataSource(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         databaseDataSourceService.delateDataBaseDataSource(id);

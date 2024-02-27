@@ -20,6 +20,7 @@ import com.abixen.platform.core.model.impl.Layout;
 import com.abixen.platform.core.service.LayoutService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +43,7 @@ public class ApplicationLayoutController {
         this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public List<LayoutDto> getDashboardLayouts() {
         log.debug("getLayouts()");
 

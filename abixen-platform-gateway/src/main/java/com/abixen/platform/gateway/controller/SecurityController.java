@@ -18,6 +18,7 @@ import com.abixen.platform.common.security.PlatformWebUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ import java.security.Principal;
 public class SecurityController {
 
     @ResponseBody
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @GetMapping(value = "/user")
     public PlatformWebUser user(Principal principal) {
         log.debug("user: " + principal);
         PlatformWebUser platformWebUser = (PlatformWebUser) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();

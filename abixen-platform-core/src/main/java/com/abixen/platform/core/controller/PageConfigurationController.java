@@ -45,13 +45,13 @@ public class PageConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_VIEW + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public PageModelDto getPageConfiguration(@PathVariable Long id) {
         return pageConfigurationService.getPageConfiguration(id);
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_ADD + "')")
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createPage(@RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("updatePageModel() - pageConfigurationForm: {}", pageConfigurationForm);
 
@@ -66,7 +66,7 @@ public class PageConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_EDIT + "')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("updatePageModel() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);
 
@@ -81,7 +81,7 @@ public class PageConfigurationController {
     }
 
     @PreAuthorize("hasPermission(#id, '" + AclClassName.Values.PAGE + "', '" + PermissionName.Values.PAGE_CONFIGURATION + "')")
-    @RequestMapping(value = "/{id}/configure", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}/configure")
     public FormValidationResultDto configurePage(@PathVariable("id") Long id, @RequestBody @Valid PageConfigurationForm pageConfigurationForm, BindingResult bindingResult) {
         log.debug("configurePage() - id: {}, pageConfigurationForm: {}", id, pageConfigurationForm);
 

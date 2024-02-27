@@ -32,6 +32,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -54,7 +58,7 @@ public class AdminLayoutController {
         this.layoutToLayoutDtoConverter = layoutToLayoutDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<LayoutDto> getLayouts(@PageableDefault(size = 1) Pageable pageable, LayoutSearchForm layoutSearchForm) {
         log.debug("getLayouts()");
 
@@ -70,7 +74,7 @@ public class AdminLayoutController {
         return layoutDtos;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public LayoutDto getLayout(@PathVariable Long id) {
         log.debug("getLayout() - id: {}", id);
 
@@ -78,14 +82,14 @@ public class AdminLayoutController {
         return layoutToLayoutDtoConverter.convert(layout);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createLayout(@RequestBody Layout layout) {
         log.debug("save() - layout: {}", layout);
         Layout createdLayout = layoutService.createLayout(layout);
         return new FormValidationResultDto(new LayoutForm(createdLayout));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     FormValidationResultDto updateLayout(@PathVariable Long id, @RequestBody @Valid LayoutForm layoutForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -96,14 +100,14 @@ public class AdminLayoutController {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteLayout(@PathVariable("id") long id) {
         log.debug("delete() - id: {}", id);
         layoutService.deleteLayout(id);
         return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/icon", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/icon")
     public LayoutDto updateLayoutIcon(@PathVariable Long id, @RequestParam("iconFile") MultipartFile iconFile) throws IOException {
         Layout layout = layoutService.changeIcon(id, iconFile);
         return layoutToLayoutDtoConverter.convert(layout);

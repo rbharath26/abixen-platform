@@ -35,6 +35,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -54,7 +58,7 @@ public class DataFileController {
         this.dataFileService = dataFileService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<DataFile> getDataFile(@PageableDefault(size = DEFAULT_PAGE_SIZE, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
@@ -64,7 +68,7 @@ public class DataFileController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public DataFileWeb getDataFile(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
@@ -72,7 +76,7 @@ public class DataFileController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createDataFile(@RequestBody @Valid DataFileForm fileDataForm, BindingResult bindingResult) {
         log.debug("createDataSource() - fileDataSourceForm: " + fileDataForm);
 
@@ -87,7 +91,7 @@ public class DataFileController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateDataFile(@PathVariable("id") Long id, @RequestBody @Valid DataFileForm dataFileForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - id: " + id + ", fileDataSourceForm: " + dataFileForm);
 
@@ -101,18 +105,18 @@ public class DataFileController {
         return new FormValidationResultDto(fileDataSourceFormResult);
     }
 
-    @RequestMapping(value = "/{id}/columns", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/columns")
     public List<DataSourceColumnWeb> getTableColumns(@PathVariable("id") Long id) {
         log.debug("getTableColumns()");
         return dataFileService.getDataFileColumns(id);
     }
 
-    @RequestMapping(value = "/parse/{readFirstColumnAsColumnName}", method = RequestMethod.POST)
+    @PostMapping(value = "/parse/{readFirstColumnAsColumnName}")
     public FileParserMessage<DataFileColumn> uploadAndParseFile(@PathVariable("readFirstColumnAsColumnName") Boolean readFirstColumnAsColumnName, @RequestParam("file") MultipartFile uploadedFile) {
         return dataFileService.uploadAndParseFile(uploadedFile, readFirstColumnAsColumnName);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         dataFileService.delateFileData(id);

@@ -50,7 +50,7 @@ public class ChartModuleConfigurationController {
 
     @PreAuthorize("hasPermission(#moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_VIEW + "')")
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{moduleId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{moduleId}")
     public ChartConfigurationForm getChartConfigurationForm(@PathVariable Long moduleId) {
         log.debug("getChartConfigurationForm() - moduleId: " + moduleId);
 
@@ -69,7 +69,7 @@ public class ChartModuleConfigurationController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createChartConfiguration(@RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("createChartConfiguration() - chartConfigurationForm: " + chartConfigurationForm);
 
@@ -85,7 +85,7 @@ public class ChartModuleConfigurationController {
 
     @PreAuthorize("hasPermission(#chartConfigurationForm.moduleId, '" + AclClassName.Values.MODULE + "', '" + PermissionName.Values.MODULE_CONFIGURATION + "')")
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateChartConfiguration(@PathVariable("id") Long id, @RequestBody @Valid ChartConfigurationForm chartConfigurationForm, BindingResult bindingResult) {
         log.debug("updateChartConfiguration() - id: " + id + ", chartConfigurationForm: " + chartConfigurationForm);
 

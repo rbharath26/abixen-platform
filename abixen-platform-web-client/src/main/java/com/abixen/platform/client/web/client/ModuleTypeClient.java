@@ -16,6 +16,7 @@ package com.abixen.platform.client.web.client;
 
 import com.abixen.platform.client.web.model.ModuleType;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,7 +26,7 @@ import java.util.List;
 @FeignClient("abixen-platform-core")
 public interface ModuleTypeClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/module-types/all")
+    @GetMapping(value = "/api/control-panel/module-types/all")
     List<ModuleType> getAllModuleTypes();
 
 

@@ -43,6 +43,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -88,7 +92,7 @@ public abstract class AbstractUserController {
         this.roleToRoleDtoConverter = roleToRoleDtoConverter;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public UserDto getUser(@PathVariable Long id) {
         log.debug("getUser() - id: " + id);
 
@@ -97,7 +101,7 @@ public abstract class AbstractUserController {
         return userDto;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createUser(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("save() - userForm: " + userForm);
 
@@ -126,14 +130,14 @@ public abstract class AbstractUserController {
         return new FormValidationResultDto(userForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         userService.deleteUser(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateUser(@PathVariable Long id, @RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
         log.debug("update() - id: " + id + ", userForm: " + userForm);
 
@@ -146,7 +150,7 @@ public abstract class AbstractUserController {
         return new FormValidationResultDto(userFormResult);
     }
 
-    @RequestMapping(value = "/{id}/avatar/{hash}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/avatar/{hash}")
     public ResponseEntity<byte[]> getUserAvatar(@PathVariable Long id, @PathVariable String hash) throws IOException {
         InputStream in = null;
         try {
@@ -165,12 +169,12 @@ public abstract class AbstractUserController {
 
     }
 
-    @RequestMapping(value = "/{id}/avatar", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/avatar")
     public User updateUserAvatar(@PathVariable Long id, @RequestParam("avatarFile") MultipartFile avatarFile) throws IOException {
         return userService.changeUserAvatar(id, avatarFile);
     }
 
-    @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/roles")
     public UserRolesForm getUserRoles(@PathVariable Long id) {
         log.debug("getUserRoles() - id: " + id);
 
@@ -185,7 +189,7 @@ public abstract class AbstractUserController {
         return userRolesForm;
     }
 
-    @RequestMapping(value = "/{id}/password", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/password")
     public FormValidationResultDto changeUserPassword(@PathVariable Long id, @RequestBody @Valid UserChangePasswordForm userChangePasswordForm, BindingResult bindingResult) {
         log.debug("changeUserPassword() - id: " + id + ", changeUserPasswordForm: " + userChangePasswordForm);
 
@@ -224,7 +228,7 @@ public abstract class AbstractUserController {
         return new FormValidationResultDto(userChangePasswordFormResult);
     }
 
-    @RequestMapping(value = "/selected-language/{selectedLanguage}", method = RequestMethod.PUT)
+    @PutMapping(value = "/selected-language/{selectedLanguage}")
     public ResponseEntity<UserLanguage> updateSelectedLanguage(@PathVariable UserLanguage selectedLanguage) {
         log.debug("updateSelectedLanguage() for logged user : " + selectedLanguage);
         UserLanguage updatedSelectedLanguage = userService.updateSelectedLanguage(securityService.getAuthorizedUser().getId(), selectedLanguage);

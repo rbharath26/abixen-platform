@@ -41,12 +41,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public List<ModuleCommentDto> findComments(@RequestParam(value = "moduleId") Long moduleId) {
         return commentService.findComments(moduleId);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -56,7 +56,7 @@ public class CommentController {
         return new FormValidationResultDto(savedForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateComment(@RequestBody @Valid CommentForm commentForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FormErrorDto> formErrors = ValidationUtil.extractFormErrors(bindingResult);
@@ -66,7 +66,7 @@ public class CommentController {
         return new FormValidationResultDto(updatedForm);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public Integer deleteComment(@PathVariable("id") Long id) {
         return commentService.deleteComment(id);
     }

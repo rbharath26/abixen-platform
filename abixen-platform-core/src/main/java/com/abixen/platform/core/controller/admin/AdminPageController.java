@@ -54,7 +54,7 @@ public class AdminPageController extends AbstractPageController {
         this.pageToPageDtoConverter = pageToPageDtoConverter;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public PageDto getPage(@PathVariable Long id) {
         log.debug("getPage() - id: " + id);
 
@@ -62,7 +62,7 @@ public class AdminPageController extends AbstractPageController {
         return pageToPageDtoConverter.convert(page);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updatePage(@PathVariable("id") Long id, @RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("updatePage() - id: " + id + ", pageForm: " + pageForm);
 
@@ -76,7 +76,7 @@ public class AdminPageController extends AbstractPageController {
         return new FormValidationResultDto(pageFormResult);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public org.springframework.data.domain.Page<PageDto> getPages(@PageableDefault(size = PAGEABLE_DEFAULT_PAGE_SIZE) Pageable pageable, PageSearchForm pageSearchForm) {
         log.debug("getPages()");
 
@@ -88,7 +88,7 @@ public class AdminPageController extends AbstractPageController {
 
 
     @PreAuthorize("hasPermission(null, 'com.abixen.platform.core.model.impl.Page', 'PAGE_ADD')")
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createPage(@RequestBody @Valid PageForm pageForm, BindingResult bindingResult) {
         log.debug("createPage() - pageForm: " + pageForm);
 

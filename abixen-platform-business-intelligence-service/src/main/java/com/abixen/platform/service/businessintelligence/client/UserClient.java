@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.client;
 
 import com.abixen.platform.service.businessintelligence.model.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("abixen-platform-core")
 public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/control-panel/users/{id}")
+    @GetMapping(value = "/api/control-panel/users/{id}")
     User getUserById(@PathVariable("id") Long id);
 
 

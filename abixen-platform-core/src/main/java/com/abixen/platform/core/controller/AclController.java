@@ -28,13 +28,13 @@ public class AclController {
     @Autowired
     private AclService aclService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public AclRolesPermissionsDto getAclRolesPermissionsDto(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId) {
         log.debug("getAclRolesPermissionsDto()");
         return aclService.getAclRolesPermissionsDto(permissionAclClassCategoryName, objectId);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @PutMapping(value = "")
     public AclRolesPermissionsDto updateAclRolesPermissions(@RequestParam("permissionAclClassCategoryName") String permissionAclClassCategoryName, @RequestParam("objectId") Long objectId, @RequestBody AclRolesPermissionsDto aclRolesPermissionsDto) {
         log.debug("updateAclRolesPermissions() - aclRolesPermissionsDto: " + aclRolesPermissionsDto);
         return aclService.updateAclRolesPermissionsDto(aclRolesPermissionsDto, permissionAclClassCategoryName, objectId);

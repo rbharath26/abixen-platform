@@ -50,7 +50,7 @@ public class DatabaseConnectionController {
         this.databaseConnectionService = databaseConnectionService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<DatabaseConnection> getDatabaseConnections(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getDatabaseConnections()");
 
@@ -63,7 +63,7 @@ public class DatabaseConnectionController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public DatabaseConnectionWeb getDatabaseConnection(@PathVariable Long id) {
         log.debug("getFileDatabaseConnection() - id: " + id);
 
@@ -71,7 +71,7 @@ public class DatabaseConnectionController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("createDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
@@ -86,7 +86,7 @@ public class DatabaseConnectionController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateDatabaseConnection(@PathVariable("id") Long id, @RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("updateDatabaseConnection() - id: " + id + ", databaseConnectionForm: " + databaseConnectionForm);
 
@@ -101,7 +101,7 @@ public class DatabaseConnectionController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @PostMapping(value = "/test")
     public FormValidationResultDto testDatabaseConnection(@RequestBody @Valid DatabaseConnectionForm databaseConnectionForm, BindingResult bindingResult) {
         log.debug("testDatabaseConnection() - databaseConnectionForm: " + databaseConnectionForm);
 
@@ -115,19 +115,19 @@ public class DatabaseConnectionController {
         return new FormValidationResultDto(databaseConnectionForm);
     }
 
-    @RequestMapping(value = "/{id}/tables", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/tables")
     public List<String> getTables(@PathVariable("id") Long id) {
         log.debug("getTables()");
         return databaseConnectionService.getTables(id);
     }
 
-    @RequestMapping(value = "/{id}/tables/{tableName}/columns", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/tables/{tableName}/columns")
     public List<DataSourceColumnWeb> getTableColumns(@PathVariable("id") Long id, @PathVariable("tableName") String tableName) {
         log.debug("getTableColumns()");
         return databaseConnectionService.getTableColumns(id, tableName);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteFileData(@PathVariable("id") long id) {
         log.debug("delete() - id: " + id);
         databaseConnectionService.deleteDatabaseConnection(id);

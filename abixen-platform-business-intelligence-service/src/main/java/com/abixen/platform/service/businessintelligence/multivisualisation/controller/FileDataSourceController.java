@@ -49,7 +49,7 @@ public class FileDataSourceController {
         this.fileDataSourceService = fileDataSourceService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<FileDataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 
@@ -59,7 +59,7 @@ public class FileDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public FileDataSourceWeb getDataSource(@PathVariable Long id) {
         log.debug("getDataSource() - id: " + id);
 
@@ -67,7 +67,7 @@ public class FileDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createDataSource(@RequestBody @Valid FileDataSourceForm fileDataSourceForm, BindingResult bindingResult) {
         log.debug("createDataSource() - fileDataSourceForm: " + fileDataSourceForm);
 
@@ -82,7 +82,7 @@ public class FileDataSourceController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateDataSource(@PathVariable("id") Long id, @RequestBody @Valid FileDataSourceForm fileDataSourceForm, BindingResult bindingResult) {
         log.debug("updateDataSource() - id: " + id + ", fileDataSourceForm: " + fileDataSourceForm);
 
@@ -96,7 +96,7 @@ public class FileDataSourceController {
         return new FormValidationResultDto(fileDataSourceFormResult);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteFileDataSource(@PathVariable("id") long id) {
        log.debug("delete() - id: " + id);
        fileDataSourceService.delateFileDataSource(id);

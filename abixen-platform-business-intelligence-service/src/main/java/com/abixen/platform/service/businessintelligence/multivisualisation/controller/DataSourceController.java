@@ -37,7 +37,7 @@ public class DataSourceController {
         this.dataSourceService = dataSourceService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<DataSource> getDataSources(@PageableDefault(size = 1, page = 0) Pageable pageable) {
         log.debug("getDatabaseDataSources()");
 

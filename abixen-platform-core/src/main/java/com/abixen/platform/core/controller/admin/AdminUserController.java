@@ -72,7 +72,7 @@ public class AdminUserController extends AbstractUserController {
         this.userToUserDtoConverter = userToUserDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<UserDto> getUsers(@PageableDefault(size = 1, page = 0) Pageable pageable, UserSearchForm userSearchForm) {
         log.debug("getUsers()");
 
@@ -82,7 +82,7 @@ public class AdminUserController extends AbstractUserController {
         return userDtos;
     }
 
-    @RequestMapping(value = "/{id}/roles", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}/roles")
     public FormValidationResultDto updateUserRoles(@PathVariable("id") Long id, @RequestBody @Valid UserRolesForm userRolesForm, BindingResult bindingResult) {
         log.debug("updateUserRoles() - id: " + id + ", userRolesForm: " + userRolesForm);
 
@@ -97,7 +97,7 @@ public class AdminUserController extends AbstractUserController {
         return new FormValidationResultDto(userRolesForm);
     }
 
-    @RequestMapping(value = "/custom/username/{username}/", method = RequestMethod.GET)
+    @GetMapping(value = "/custom/username/{username}/")
     public UserDto getUserByUsername(@PathVariable("username") String username) {
         log.debug("getUserByUsername() - username: " + username);
         User user = userService.findUser(username);

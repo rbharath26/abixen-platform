@@ -47,7 +47,7 @@ public class StructureController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping(value = "")
     public FormValidationResultDto createStructure(@RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         log.debug("createStructure() - structureForm: {}", structureForm);
 
@@ -62,7 +62,7 @@ public class StructureController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateStructure(@PathVariable("id") Long id, @RequestBody @Valid StructureForm structureForm, BindingResult bindingResult) {
         log.debug("updateStructure() - id: {}, structureForm: {}", id, structureForm);
 
@@ -77,7 +77,7 @@ public class StructureController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void removeStructure(@PathVariable Long id) {
         log.debug("removeStructure() - id: {}", id);
 
@@ -85,14 +85,14 @@ public class StructureController {
     }
 
     @JsonView(WebModelJsonSerialize.class)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public StructureWeb getStructure(@PathVariable Long id) {
         log.debug("getStructure() - id: {}", id);
 
         return structureService.findStructureById(id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public Page<Structure> getStructures(@PageableDefault(size = 1) Pageable pageable) {
         log.debug("getStructures() - pageable: {}", pageable);
 

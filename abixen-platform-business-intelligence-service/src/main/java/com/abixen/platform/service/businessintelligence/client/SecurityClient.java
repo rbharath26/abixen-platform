@@ -16,6 +16,7 @@ package com.abixen.platform.service.businessintelligence.client;
 
 import com.abixen.platform.common.model.enumtype.AclClassName;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("abixen-platform-core")
 public interface SecurityClient {
 
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/api/control-panel/securities/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}")
+    @GetMapping(
+           value = "/api/control-panel/securities/has-permission/{username}/{securableObjectId}/{aclClassName}/{permissionName}")
     Boolean hasPermission(@PathVariable("username") String username,
                           @PathVariable("securableObjectId") Long securableObjectId,
                           @PathVariable("aclClassName") AclClassName aclClassName,

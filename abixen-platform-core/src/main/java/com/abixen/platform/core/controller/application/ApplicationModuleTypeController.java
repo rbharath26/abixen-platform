@@ -17,6 +17,7 @@ package com.abixen.platform.core.controller.application;
 import com.abixen.platform.core.dto.ModuleTypeDto;
 import com.abixen.platform.core.service.ModuleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class ApplicationModuleTypeController {
         this.moduleTypeService = moduleTypeService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public List<ModuleTypeDto> getModuleTypes() {
         return moduleTypeService.findAllModuleTypes();
     }

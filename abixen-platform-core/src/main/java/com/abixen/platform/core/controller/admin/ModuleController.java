@@ -48,7 +48,7 @@ public class ModuleController {
         this.moduleToModuleDtoConverter = moduleToModuleDtoConverter;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public org.springframework.data.domain.Page<ModuleDto> getModules(@PageableDefault(size = 1, page = 0) Pageable pageable, ModuleSearchForm moduleSearchForm) {
         log.debug("getModules()");
 
@@ -56,7 +56,7 @@ public class ModuleController {
         return moduleToModuleDtoConverter.convertToPage(modules);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ModuleDto getModule(@PathVariable Long id) {
         log.debug("getModule() - id: " + id);
 
@@ -65,7 +65,7 @@ public class ModuleController {
         return moduleToModuleDtoConverter.convert(module);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public FormValidationResultDto updateModule(@PathVariable("id") Long id, @RequestBody @Valid ModuleForm moduleForm, BindingResult bindingResult) {
         log.debug("updateModule() - id: " + id + ", moduleForm: " + moduleForm);
 
