@@ -25,7 +25,7 @@ public class ConnectionPasswordConverter implements AttributeConverter<String, S
 
     @Override
     public String convertToDatabaseColumn(String decryptedPassword) {
-        if (decryptedPassword != null && !decryptedPassword.equals("")) {
+        if (decryptedPassword != null && !"".equals(decryptedPassword)) {
             return AES128Encoder.encryptPassword(decryptedPassword);
         }
         return decryptedPassword;
@@ -33,7 +33,7 @@ public class ConnectionPasswordConverter implements AttributeConverter<String, S
 
     @Override
     public String convertToEntityAttribute(String encryptedPassword) {
-        if (encryptedPassword != null && !encryptedPassword.equals("")) {
+        if (encryptedPassword != null && !"".equals(encryptedPassword)) {
             return AES128Encoder.decryptPassword(encryptedPassword);
         }
         return encryptedPassword;

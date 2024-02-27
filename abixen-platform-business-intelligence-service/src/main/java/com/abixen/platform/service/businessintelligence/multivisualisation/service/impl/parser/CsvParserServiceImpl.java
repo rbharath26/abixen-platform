@@ -125,7 +125,7 @@ public class CsvParserServiceImpl implements FileParserService {
     }
 
     private void validateAsString(Integer i, Integer j, FileParserMessage<DataFileColumn> msg, String element) {
-        if (element.equals("")) {
+        if ("".equals(element)) {
             msg.addFileParseError(new FileParseError(1, String.format("[Line %d, column %d] is empty", i, j)));
         }
     }
