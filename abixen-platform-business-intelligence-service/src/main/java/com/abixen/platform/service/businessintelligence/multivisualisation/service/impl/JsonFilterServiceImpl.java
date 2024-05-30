@@ -51,14 +51,14 @@ public class JsonFilterServiceImpl implements JsonFilterService {
         int conditionArgumentNumber = 0;
         String currentOperator = "";
         for (String key : jsonCriteriaMap.keySet()) {
-            if (key.equals("group")) {
+            if ("group".equals(key)) {
                 query = query.substring(0, query.length() - 1);
                 query += convertJsonToJpqlRecursive((Map<String, Object>) jsonCriteriaMap.get(key), parameters, typeMapping);
                 query = query.substring(0, query.length() - 1);
             } else {
-                if (key.equals("operator")) {
+                if ("operator".equals(key)) {
                     currentOperator = jsonCriteriaMap.get(key).toString().toUpperCase();
-                } else if (key.equals("rules")) {
+                } else if ("rules".equals(key)) {
                     for (Object criteriaObject : (List) jsonCriteriaMap.get(key)) {
                         if (conditionArgumentNumber > 0) {
                             query += currentOperator + " ";
@@ -86,7 +86,7 @@ public class JsonFilterServiceImpl implements JsonFilterService {
                         }
                         conditionArgumentNumber++;
                     }
-                    if (query.substring(query.length() - 1, query.length()).equals(" ")) {
+                    if (" ".equals(query.substring(query.length() - 1, query.length()))) {
                         query = query.substring(0, query.length() - 1);
                     }
                 }
