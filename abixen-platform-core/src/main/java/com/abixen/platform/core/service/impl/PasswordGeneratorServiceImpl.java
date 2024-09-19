@@ -15,6 +15,7 @@
 package com.abixen.platform.core.service.impl;
 
 import com.abixen.platform.core.service.PasswordGeneratorService;
+import java.security.SecureRandom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
         if ((noOfCAPSAlpha + noOfDigits + noOfSpecialChars) != length) {
             throw new IllegalArgumentException("Length should be atleast sum of (CAPS, DIGITS, SPECIALS CHARS) Length!");
         }
-        Random random = new Random();
+        Random random = new SecureRandom();
         char[] passwordChars = new char[length];
         int index = 0;
         for (int i = 0; i < noOfCAPSAlpha; i++) {
