@@ -23,6 +23,7 @@ import com.abixen.platform.service.businessintelligence.multivisualisation.model
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.data.DataValueString;
 import com.abixen.platform.service.businessintelligence.multivisualisation.model.impl.file.DataFileColumn;
 import com.abixen.platform.service.businessintelligence.multivisualisation.service.FileParserService;
+import io.github.pixee.security.Filenames;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -166,7 +167,7 @@ public class ExcelParserServiceImpl implements FileParserService {
 
     private Workbook openFileAsWorkBook(MultipartFile file, FileParserMessage<DataFileColumn> msg) throws IOException {
         try {
-            String fileName = file.getOriginalFilename();
+            String fileName = Filenames.toSimpleFileName(file.getOriginalFilename());
             if (".xlsx".equals(fileName.substring(fileName.lastIndexOf(".")))) {
                 return new XSSFWorkbook(file.getInputStream());
             }
