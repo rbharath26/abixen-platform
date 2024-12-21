@@ -22,6 +22,7 @@ import com.abixen.platform.common.model.enumtype.UserGender;
 import com.abixen.platform.common.model.enumtype.UserLanguage;
 import com.abixen.platform.core.model.impl.User;
 import com.abixen.platform.core.util.UserBuilder;
+import java.security.SecureRandom;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -143,7 +144,7 @@ public class UserServiceTest {
         MultipartFile newAvatarFile = mock(MultipartFile.class);
         when(newAvatarFile.getName()).thenReturn("newAvatarFile");
         byte[] bytes = new byte[32];
-        new Random().nextBytes(bytes);
+        new SecureRandom().nextBytes(bytes);
         when(newAvatarFile.getBytes()).thenReturn(bytes);
 
         User updatedUser = null;
